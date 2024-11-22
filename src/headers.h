@@ -18,4 +18,7 @@
 using namespace std;
 
 
+//: init.cpp
+void init();
+
 #endif // HEADERS_H
