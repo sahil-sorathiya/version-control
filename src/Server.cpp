@@ -1,7 +1,7 @@
 #include "headers.h"
 
 int main(int argc, char *argv[]) {
-    
+
     try {
         //: Flush after every cout / cerr
         cout << unitbuf;
@@ -16,6 +16,30 @@ int main(int argc, char *argv[]) {
 
         if (command == "init") {
             init();
+        }
+        else if (command == "cat-file") {
+
+            //: Validating number of args
+            if (argc != 4) {
+                throw(runtime_error("Invalid number of args!!"));
+            }
+
+            const string flag = argv[2];
+            const string sha = argv[3];
+
+            //: Validating flag value
+            //: Flag -d means debug flag
+            if (flag != "-d" && flag != "-t" && flag != "-s" && flag != "-p") {
+                throw(runtime_error("Unknown flag " + flag));
+            }
+
+            //: Validating sha value
+            if (sha.size() != 40){
+                throw(runtime_error("Invalid SHA!!"));
+            }
+
+            //: Running the command
+            catFile(flag, sha);
         }
         //: Command Not Found
         else {
