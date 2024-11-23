@@ -1,6 +1,6 @@
-#include "headers.h"
+#include "../headers.h"
 
-void init(){
+void init() {
     //: Creating necessory directories
     filesystem::create_directory(string(GIT_DIRECTORY_PATH));
     filesystem::create_directory(string(GIT_DIRECTORY_PATH) + "/objects");
@@ -14,5 +14,14 @@ void init(){
     } else {
         throw(runtime_error("Failed to create " + string(GIT_DIRECTORY_PATH) + "/HEAD file."));
     }
-    cout << "Initialized git directory\n";
+
+    //: Checking if already a repo or not
+    //: If already initialized as a repo and if objects and refs not exitst
+    //: then we created them
+    if (filesystem::exists(string(GIT_DIRECTORY_PATH))) {
+        cout << "Reinitialised Git repository in " << (filesystem::current_path() / string(GIT_DIRECTORY_PATH)).lexically_normal() << endl;
+    }
+    else {
+        cout << "Initialised empty Git repository in " << (filesystem::current_path() / string(GIT_DIRECTORY_PATH)).lexically_normal() << endl;
+    }
 }
